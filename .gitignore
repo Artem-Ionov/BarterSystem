@@ -1,0 +1,4 @@
+barterenv/
+__pycache__/
+*.bak
+*.sqlite3
