@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if ads %}
+        {% for ad in ads %}
+            <p>{{ad.title}}</p>
+        {% endfor %}
+    {% else %}
+        <p>Пока здесь нет ни одного объявления</p>
+    {% endif %}
+{% endblock %}
