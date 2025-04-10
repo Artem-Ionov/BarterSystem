@@ -1,11 +1,20 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %}                                       <!--Расширяем базовый шаблон-->
 
-{% block content %}
-    {% if ads %}
-        {% for ad in ads %}
-            <p>{{ad.title}}</p>
+{% block content %}                                             <!--Заполняем блок content-->
+    <h2>Список объявлений на обмен вещей</h2>
+    {% if ads %}                                                <!--Если есть выложенные объявления,-->
+        {% for ad in ads %}                                     <!--производим их перебор в цикле-->
+            <div class="ad">
+                <h3>{{ad.title}}</h3>
+                <ul>
+                    <li>Описание: {{ad.description}}</li>
+                    <li>Категория: {{ad.get_category_display}}</li>
+                    <li>Состояние: {{ad.get_condition_display}}</li>
+                </ul>
+            </div>
+            <br>
         {% endfor %}
-    {% else %}
+    {% else %}                                                  <!--В противном случае выводим соответствующее сообщение-->
         <p>Пока здесь нет ни одного объявления</p>
     {% endif %}
 {% endblock %}

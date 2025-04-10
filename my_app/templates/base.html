@@ -11,7 +11,7 @@
         {% block navi %}                                        <!--Панель навигации-->
             <ul>
                 <li><a href="{% url 'ad_list' %}">Все объявления</a></li>
-                <li><a href="">Новое объявление</a></li>
+                <li><a href="{% url 'create_ad' %}">Новое объявление</a></li>
             </ul>
         {% endblock %}
         </div>

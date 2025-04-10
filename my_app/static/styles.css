@@ -4,12 +4,22 @@ body{
 
 .navi{
     flex: 0 0 20%;
+    padding-top: 5%;
 }
 
 .content{
-    flex: 0 0 79%;
+    flex: 0 0 60%;
 }
 
-.navi ul{
+.ad{
+    border: solid 1px;
+    border-radius: 20px;
+}
+
+.ad h3{
+    text-align: center;
+}
+
+ul{
     list-style: none;
 }
