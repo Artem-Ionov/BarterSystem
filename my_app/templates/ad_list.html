@@ -5,16 +5,26 @@
     {% if ads %}                                                <!--Если есть выложенные объявления,-->
         {% for ad in ads %}                                     <!--производим их перебор в цикле-->
             <div class="ad">
-                <h3>{{ad.title}}</h3>
+                <h3>{{ad.title}}</h3>                           <!--Вставляем данные, переданные из функции-->
                 <ul>
                     <li>Описание: {{ad.description}}</li>
                     <li>Категория: {{ad.get_category_display}}</li>
-                    <li>Состояние: {{ad.get_condition_display}}</li>
+                    <li>Состояние: {{ad.get_condition_display}}</li>                
+                {% if ad.image %}
+                    <li class="media">                          <!--Вставляем миниизображение-ссылку-->
+                        Изображение:<a href="{{ad.image.url}}">
+                                        <img src='{{ad.image.url}}' height=100px width=100px></a></li>
+                {% endif %}
                 </ul>
+                <div class="buttons"> 
+                    <a href="">Редактировать</a>                <!--Ссылка (кнопка) для редактирования объявления-->
+                    <a href="{% url 'delete_ad' ad.id %}"       
+                       onclick="return confirm('Удалить объявление?')">Удалить</a>  <!--Для удаления с подтверждением-->
+                </div>
             </div>
             <br>
         {% endfor %}
-    {% else %}                                                  <!--В противном случае выводим соответствующее сообщение-->
+    {% else %}                                                  <!--Если нет объявлений, выводим соответствующее сообщение-->
         <p>Пока здесь нет ни одного объявления</p>
     {% endif %}
 {% endblock %}

@@ -1,25 +1,49 @@
 body{
-    display: flex;
+    display: flex;                              /*Делаем body контейнером для .navi и .content*/
 }
 
 .navi{
-    flex: 0 0 20%;
-    padding-top: 5%;
+    flex: 0 0 20%;                              /*Задаём ширину элемента в контейнере*/
+    padding-top: 5%;                            /*Делаем отступ содержимого блока от его верхней границы*/
 }
 
 .content{
-    flex: 0 0 60%;
+    flex: 0 0 60%;                              /*Задаём ширину элемента в контейнере*/
 }
 
 .ad{
-    border: solid 1px;
-    border-radius: 20px;
+    border: solid 1px;                          /*Делаем границу блока видимой, задаём её толщину*/
+    border-radius: 20px;                        /*Задаём скругление углов границы*/
 }
 
 .ad h3{
-    text-align: center;
+    text-align: center;                         /*Центрируем текст*/
+}
+
+.media{
+    display: flex;                             
+    align-items: flex-start;                    /*Выравниваем по вертикальной оси по верхнему краю*/
+    gap: 10px;                                  /*Зазор между элементами контейнера*/
+}
+
+.buttons{
+    margin-left: 5%;                            /*Задаём внешние отступы блока слева*/
+    margin-bottom: 10px;                        /*и снизу*/
+}
+
+.buttons a{                                     /*Превращаем ссылку в кнопку*/
+    display: inline-block;                      /*Превращаем строчный элемент в inline-block (промежуточный вариант)*/
+    padding: 7px;
+    text-decoration: none;
+    border: solid 1px;
+    border-radius: 5px;
+    color: blue;
+}
+
+.buttons a:hover{                               /*Изменяем цвет при наведении*/
+    background-color: lightgray;
 }
 
 ul{
-    list-style: none;
+    list-style: none;                           /*Убираем декорирование пунктов ненумерованных списков*/
 }

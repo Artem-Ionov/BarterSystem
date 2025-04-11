@@ -1,4 +1,5 @@
 barterenv/
 __pycache__/
+my_app/media/
 *.bak
 *.sqlite3

@@ -17,8 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("my_app/", include('my_app.urls')),                    # Включаем для приложения подсписок url-адресов
 ]
+
+if settings.DEBUG:                                              # Подключаем обработку медиафайлов в режиме разработки
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
