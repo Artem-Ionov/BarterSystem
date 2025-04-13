@@ -1,10 +1,32 @@
 body{
     display: flex;                              /*Делаем body контейнером для .navi и .content*/
+    gap: 3%;                                    /*Отступ между элементами контейнера*/
 }
 
 .navi{
-    flex: 0 0 20%;                              /*Задаём ширину элемента в контейнере*/
+    flex: 0 0 17%;                              /*Задаём ширину элемента в контейнере*/
     padding-top: 5%;                            /*Делаем отступ содержимого блока от его верхней границы*/
+}
+
+.navi ul{
+    padding: 0;                                 /*Убираем внутренний отступ списка, чтобы каждый li растянулся на всю ширину*/
+}
+
+.navi li{
+    height: 35px;
+    font-size: 20px;
+    text-align: center;
+    line-height: 35px;                          /*Используем для выравнивания по вертикали*/
+}
+
+.navi a{
+    display: block;                             /*Делаем ссылку блочным элементом, чьобы она заполнила весь li (для наведения)*/
+    text-decoration: none;
+    color: blue;
+}
+
+.navi a:hover{
+    background-color: lightgray;              /*Изменяем цвет при наведении*/
 }
 
 .content{
@@ -18,6 +40,10 @@ body{
 
 .ad h3{
     text-align: center;                         /*Центрируем текст*/
+}
+
+.ad ul{
+    list-style: none;                           /*Убираем декорирование пунктов ненумерованного списка*/
 }
 
 .media{
@@ -44,6 +70,4 @@ body{
     background-color: lightgray;
 }
 
-ul{
-    list-style: none;                           /*Убираем декорирование пунктов ненумерованных списков*/
-}
+

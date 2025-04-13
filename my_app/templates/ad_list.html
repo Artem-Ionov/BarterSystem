@@ -2,29 +2,27 @@
 
 {% block content %}                                             <!--Заполняем блок content-->
     <h2>Список объявлений на обмен вещей</h2>
-    {% if ads %}                                                <!--Если есть выложенные объявления,-->
-        {% for ad in ads %}                                     <!--производим их перебор в цикле-->
-            <div class="ad">
-                <h3>{{ad.title}}</h3>                           <!--Вставляем данные, переданные из функции-->
-                <ul>
-                    <li>Описание: {{ad.description}}</li>
-                    <li>Категория: {{ad.get_category_display}}</li>
-                    <li>Состояние: {{ad.get_condition_display}}</li>                
-                {% if ad.image %}
-                    <li class="media">                          <!--Вставляем миниизображение-ссылку-->
-                        Изображение:<a href="{{ad.image.url}}">
-                                        <img src='{{ad.image.url}}' height=100px width=100px></a></li>
-                {% endif %}
-                </ul>
-                <div class="buttons"> 
-                    <a href="">Редактировать</a>                <!--Ссылка (кнопка) для редактирования объявления-->
-                    <a href="{% url 'delete_ad' ad.id %}"       
-                       onclick="return confirm('Удалить объявление?')">Удалить</a>  <!--Для удаления с подтверждением-->
-                </div>
+    {% for ad in ads %}                                         <!--производим их перебор в цикле-->
+        <div class="ad">
+            <h3>{{ad.title}}</h3>                               <!--Вставляем данные, переданные из функции-->
+            <ul>
+                <li>Описание: {{ad.description}}</li>
+                <li>Категория: {{ad.get_category_display}}</li>
+                <li>Состояние: {{ad.get_condition_display}}</li>                
+            {% if ad.image %}
+                <li class="media">                              <!--Вставляем миниизображение-ссылку-->
+                    Изображение:<a href="{{ad.image.url}}">
+                                    <img src='{{ad.image.url}}' height=100px width=100px></a></li>
+            {% endif %}
+            </ul>
+            <div class="buttons"> 
+                <a href="{% url 'update_ad' ad.id %}">Редактировать</a>         <!--Ссылка (кнопка) для редактирования объявления-->
+                <a href="{% url 'delete_ad' ad.id %}"       
+                   onclick="return confirm('Удалить объявление?')">Удалить</a>  <!--Для удаления с подтверждением-->
             </div>
-            <br>
-        {% endfor %}
-    {% else %}                                                  <!--Если нет объявлений, выводим соответствующее сообщение-->
+        </div>
+        <br>
+    {% empty %}                                                 <!--Если нет объявлений, выводим соответствующее сообщение-->
         <p>Пока здесь нет ни одного объявления</p>
-    {% endif %}
+    {% endfor %}
 {% endblock %}
