@@ -2,10 +2,17 @@ from django.shortcuts import render, redirect
 from .models import Ad
 from .forms import AdForm
 
-def ad_list(request):
-    "Получение списка объявлений"
-    ads = Ad.objects.all()                                      # Получение всех объектов модели
-    return render(request, 'ad_list.html', {'ads': ads})
+def ad_list(request, filter_param=None):
+    "Получение списка объявлений + фильтрация"
+    if not filter_param:                                        # Если параметр фильтрации не передаётся,
+        ads = Ad.objects.all()                                  # получаем все объекты модели
+    else:                                                       # В противном случае выводим только отфильтрованные объявления
+        ads = Ad.objects.filter(condition=filter_param) | Ad.objects.filter(category=filter_param)
+        if not ads:                                             # Если же ни одно объявление не удовлетворяет параметру фильтрации,
+            ads = 'Для данного параметра фильтрации нет ни одного объявления'   # выводим соответствующее сообщение
+    # В шаблон передаём флаг отсутствия объявлений с заданными параметрами фильтрации и словари, переданные из модели                                      
+    context = {'ads': ads, 'is_filter': isinstance(ads, str), 'categories': Ad.category_dict, 'conditions': Ad.condition_dict}
+    return render(request, 'ad_list.html', context)
 
 def create_ad(request):
     "Создание нового объявления"

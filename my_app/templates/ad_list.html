@@ -1,28 +1,50 @@
-{% extends 'base.html' %}                                       <!--Расширяем базовый шаблон-->
+{% extends 'base.html' %}                                               <!--Расширяем базовый шаблон-->
 
-{% block content %}                                             <!--Заполняем блок content-->
-    <h2>Список объявлений на обмен вещей</h2>
-    {% for ad in ads %}                                         <!--производим их перебор в цикле-->
-        <div class="ad">
-            <h3>{{ad.title}}</h3>                               <!--Вставляем данные, переданные из функции-->
-            <ul>
-                <li>Описание: {{ad.description}}</li>
-                <li>Категория: {{ad.get_category_display}}</li>
-                <li>Состояние: {{ad.get_condition_display}}</li>                
-            {% if ad.image %}
-                <li class="media">                              <!--Вставляем миниизображение-ссылку-->
-                    Изображение:<a href="{{ad.image.url}}">
-                                    <img src='{{ad.image.url}}' height=100px width=100px></a></li>
-            {% endif %}
-            </ul>
-            <div class="buttons"> 
-                <a href="{% url 'update_ad' ad.id %}">Редактировать</a>         <!--Ссылка (кнопка) для редактирования объявления-->
-                <a href="{% url 'delete_ad' ad.id %}"       
-                   onclick="return confirm('Удалить объявление?')">Удалить</a>  <!--Для удаления с подтверждением-->
-            </div>
-        </div>
-        <br>
-    {% empty %}                                                 <!--Если нет объявлений, выводим соответствующее сообщение-->
-        <p>Пока здесь нет ни одного объявления</p>
-    {% endfor %}
+{% block content %}                                                     <!--Заполняем блок content-->
+    <div class="ads">
+        <h2>Список объявлений на обмен вещей</h2>
+        {% if is_filter %}
+            <p>{{ads}}</p>
+        {% else %}
+            {% for ad in ads %}                                         <!--производим их перебор в цикле-->
+                <div class="ad">
+                    <h3>{{ad.title}}</h3>                               <!--Вставляем данные, переданные из функции-->
+                    <ul>
+                        <li>Описание: {{ad.description}}</li>
+                        <li>Категория: {{ad.get_category_display}}</li>
+                        <li>Состояние: {{ad.get_condition_display}}</li>                
+                    {% if ad.image %}
+                        <li class="media">                              <!--Вставляем миниизображение-ссылку-->
+                            Изображение:<a href="{{ad.image.url}}">
+                                            <img src='{{ad.image.url}}' height=100px width=100px></a></li>
+                    {% endif %}
+                        <li>Дата публикации: {{ad.created_at|date:'d.m.Y H:i'}}</li><!--Форматируем дату и время с помощью встроенного фильтра date-->
+                    </ul>
+                    <div class="buttons"> 
+                        <a href="{% url 'update_ad' ad.id %}">Редактировать</a>     <!--Ссылка (кнопка) для редактирования объявления-->
+                        <a href="{% url 'delete_ad' ad.id %}"       
+                        onclick="return confirm('Удалить объявление?')">Удалить</a> <!--Для удаления с подтверждением-->
+                    </div>
+                </div>
+                <br>
+            {% empty %}                                                 <!--Если нет объявлений, выводим соответствующее сообщение-->
+                <p>Пока здесь нет ни одного объявления</p>
+            {% endfor %}
+        {% endif %}
+    </div>
+    <div class="filters">
+        <h3>Фильтры</h3>
+        <h4>По категории:</h4>
+        <ul>
+        {% for category in categories.items %}
+            <li><a href="{% url 'ad_list_filter' category.0 %}">{{category.1}}</a></li>
+        {% endfor %}
+        </ul>
+        <h4>По состоянию:</h4>
+        <ul>
+        {% for condition in conditions.items %}
+            <li><a href="{% url 'ad_list_filter' condition.0 %}">{{condition.1}}</a></li>
+        {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

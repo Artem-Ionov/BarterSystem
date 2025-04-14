@@ -1,6 +1,6 @@
 body{
     display: flex;                              /*Делаем body контейнером для .navi и .content*/
-    gap: 3%;                                    /*Отступ между элементами контейнера*/
+    gap: 3%;                                    /*Задаём отступ между элементами контейнера*/
 }
 
 .navi{
@@ -30,7 +30,23 @@ body{
 }
 
 .content{
-    flex: 0 0 60%;                              /*Задаём ширину элемента в контейнере*/
+    flex: 0 0 80%;                              /*Задаём ширину элемента в контейнере*/                                
+}
+
+.ads{
+    float: left;                                /*Применяем float для компановки .ads и .filters внутри .content*/
+    width: 70%;                                 /*(при использовании flex нарушается структура .content на других страницах)*/
+}
+
+.filters{
+    float: right;
+    width: 25%;
+    padding-top: 5%;
+}
+
+.filters a{
+    text-decoration: none;
+    color: blue;
 }
 
 .ad{
