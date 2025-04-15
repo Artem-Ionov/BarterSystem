@@ -4,4 +4,4 @@ from .models import Ad
 class AdForm(ModelForm):
     class Meta:
         model = Ad                                      # Создаём форму из модели
-        fields = '__all__'                              # Форма будет иметь все те же поля
+        exclude = ['user']                              # Форма будет иметь все те же поля, кроме тех, что указаны здесь

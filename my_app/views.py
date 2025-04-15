@@ -19,7 +19,9 @@ def create_ad(request):
     if request.method == 'POST':                                # Если метод запроса POST, проверяем валидность данных
         form = AdForm(request.POST, request.FILES)              # Данные, введённые в поля формы, и загруженные файлы 
         if form.is_valid():                                     
-            form.save()                                         # Если данные валидны, сохраняем их в базе
+            ad = form.save(commit=False)                        # Если данные валидны, сохраняем их в базе
+            ad.user = request.user
+            ad.save()
             return redirect('ad_list')                          # и перенаправляем на страницу со списком объявлений
     else:
         form = AdForm()                                         # Если метод запроса не POST, выводим пустую форму

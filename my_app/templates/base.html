@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>BarterSystem</title>                             <!--Заголовок страницы-->
-        <meta charset="utf-8">                                  <!--Кодировка-->
-        {% load static %}                                       <!--Добавляем стили-->
+        <title>BarterSystem</title>                                 <!--Заголовок страницы-->
+        <meta charset="utf-8">                                      <!--Кодировка-->
+        {% load static %}                                           <!--Добавляем стили-->
         <link rel="stylesheet", href="{% static 'styles.css' %}">
     </head>
     <body>
         <div class="navi">
-        {% block navi %}                                        <!--Панель навигации-->
+        {% block navi %}                                            <!--Панель навигации-->
             <ul>
                 <li><a href="{% url 'ad_list' %}">Все объявления</a></li>
                 <li><a href="{% url 'create_ad' %}">Новое объявление</a></li>
+                <br><br><br>
+            {% if user.is_authenticated %}                          <!--Если пользователь аутентифицирован-->
+                <li>Пользователь: {{user.get_username}}</li>        <!--выводим его имя-->
+                <li><form method="post" action="{% url 'logout' %}"><!--и кнопку выхода, для которой нужен запрос POST-->
+                    {% csrf_token %}
+                    <input type="submit" value="Выйти" class="logout-btn"></form></li>
+            {% else %}                                              <!--В противном случае выводим ссылку для входа-->
+                <li><a href="{% url 'login' %}">Войти</a></li>
+            {% endif %}
             </ul>
         {% endblock %}
         </div>
         <div class="content">
-        {% block content %}{% endblock %}                       <!--Блок основного содержимого-->
+        {% block content %}{% endblock %}                           <!--Блок основного содержимого-->
         </div>
     </body>
 </html>

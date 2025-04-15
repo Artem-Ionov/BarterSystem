@@ -23,6 +23,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     path("admin/", admin.site.urls),
     path("my_app/", include('my_app.urls')),                    # Включаем для приложения подсписок url-адресов
+    path("accounts/", include('django.contrib.auth.urls'))      # Подключаем аутентификацию
 ]
 
 if settings.DEBUG:                                              # Подключаем обработку медиафайлов в режиме разработки

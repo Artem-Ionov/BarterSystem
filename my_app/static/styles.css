@@ -29,8 +29,38 @@ body{
     background-color: lightgray;              /*Изменяем цвет при наведении*/
 }
 
+.navi li form{
+    display: contents;
+}
+.logout-btn{
+    height: 100%;
+    width: 100%;
+    border: none;
+    color: blue;
+    background-color: white;
+    font-size: 17px;
+}
+
+.logout-btn:hover{
+    background-color: lightgray;
+}
+
 .content{
     flex: 0 0 80%;                              /*Задаём ширину элемента в контейнере*/                                
+}
+
+.content button{
+    padding: 8px;
+    color: blue;
+    background-color: white;
+    border: solid 1px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.content button:hover{
+    background-color: lightgrey;
+    cursor: pointer;                            /*При наведении на кнопку узазатель принимает вид руки*/
 }
 
 .ads{

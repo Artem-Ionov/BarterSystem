@@ -56,7 +56,7 @@ ROOT_URLCONF = "BarterSystem.urls"
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
-        "DIRS": [],
+        "DIRS": [os.path.join(BASE_DIR, 'templates')],                      # Задаём путь для шаблонов входа и выхода
         "APP_DIRS": True,
         "OPTIONS": {
             "context_processors": [
@@ -125,3 +125,5 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 MEDIA_URL = '/media/'                                                       # URL-префикс для доступа к файлам через web-интерфейс
 MEDIA_ROOT = os.path.join(BASE_DIR, 'my_app/media')                         # Путь для сохранения загруженных файлов
+
+LOGIN_REDIRECT_URL = '/my_app/'                                             # Перенаправляем на данную страницу после входа
