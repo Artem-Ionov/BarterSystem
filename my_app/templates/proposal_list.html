@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    {% if proposals %}
+        {% for proposal in proposals %}
+        <div class="ad">
+            <h3>Предложение {{proposal.id}}</h3>
+            <ul>
+                <li>Отправитель и Id его обявления: {{proposal.ad_sender}}</li>
+                <li>Получатель и Id его обявления: {{proposal.ad_receiver}}</li>
+                <li>Комментарий: {{proposal.comment}}</li>
+                <li>Статус: {{proposal.get_status_display}}</li>
+                <li>Создано: {{proposal.created_at|date:'d.m.Y H:i'}}</li>
+            </ul>
+                <div class=buttons>
+                    <a href="{% url 'proposal_status' proposal.id %}">Изменить статус</a>
+                    <a href="{% url 'delete_proposal' proposal.id %}"
+                       onclick="return confirm('Удалить предложение?')">Удалить</a>
+                </div>
+        </div>
+        <br>
+        {% endfor %}
+    {% else %}
+        <p>Пока нет ни одного предложения</p>
+    {% endif %}
+{% endblock %}

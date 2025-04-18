@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Ad
-from .forms import AdForm
+from .models import Ad, ExchangeProposal
+from .forms import AdForm, ExchangeProposalForm, StatusForm
 
 def ad_list(request, filter_param=None):
     "Получение списка объявлений + фильтрация"
@@ -44,3 +44,38 @@ def delete_ad(request, id):
     ad = Ad.objects.get(id=id)                                  # Получение объекта объявления с помощью id, переданного из шаблона
     ad.delete()
     return redirect('ad_list')                                  # Возврат на страницу со списком объявлений
+
+def proposal_list(request):
+    "Получение списка предложений"
+    proposals = ExchangeProposal.objects.all()
+    return render(request, 'proposal_list.html', {'proposals': proposals})
+
+def create_proposal(request):
+    "Создание нового предложения"
+    if request.method == 'POST':
+        form = ExchangeProposalForm(request.user, request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('proposal_list')
+    else:
+        form = ExchangeProposalForm(request.user)               # Передаём в форму текущего пользователя
+    return render(request, 'create_proposal.html', {'form': form})
+
+def proposal_status(request, id):
+    "Изменение статуса объявления"
+    proposal = ExchangeProposal.objects.get(id=id)
+    if request.method == 'POST':
+        form = StatusForm(request.POST)
+        if form.is_valid():
+            proposal.status = form.cleaned_data['status']       # Получаем значение, введённое в поле формы "статус"
+            proposal.save()
+            return redirect('proposal_list')
+    else:
+        form = StatusForm(initial={'status': proposal.status})  # Передаём в форму значение из экземпляра модели
+    return render(request, 'proposal_status.html', {'form': form})
+
+def delete_proposal(request, id):
+    "Удаление предложения"
+    proposal = ExchangeProposal.objects.get(id=id)
+    proposal.delete()
+    return redirect('proposal_list')

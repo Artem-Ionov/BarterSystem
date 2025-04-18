@@ -7,11 +7,12 @@
         <link rel="stylesheet", href="{% static 'styles.css' %}">
     </head>
     <body>
-        <div class="navi">
-        {% block navi %}                                            <!--Панель навигации-->
+        <div class="navi">                                          <!--Панель навигации-->                                    
             <ul>
                 <li><a href="{% url 'ad_list' %}">Все объявления</a></li>
+                <li><a href="{% url 'proposal_list' %}">Все предложения</a></li>
                 <li><a href="{% url 'create_ad' %}">Новое объявление</a></li>
+                <li><a href="{% url 'create_proposal' %}">Новое предложение</a></li>
                 <br><br><br>
             {% if user.is_authenticated %}                          <!--Если пользователь аутентифицирован-->
                 <li>Пользователь: {{user.get_username}}</li>        <!--выводим его имя-->
@@ -22,7 +23,6 @@
                 <li><a href="{% url 'login' %}">Войти</a></li>
             {% endif %}
             </ul>
-        {% endblock %}
         </div>
         <div class="content">
         {% block content %}{% endblock %}                           <!--Блок основного содержимого-->

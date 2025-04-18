@@ -39,6 +39,7 @@ body{
     color: blue;
     background-color: white;
     font-size: 17px;
+    cursor: pointer
 }
 
 .logout-btn:hover{
