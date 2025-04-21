@@ -21,8 +21,6 @@ class ExchangeProposal(models.Model):
     "Модель предложения"
     ad_sender = models.ForeignKey(Ad, on_delete=models.SET_NULL, null=True, verbose_name='Id объявления-отправителя', related_name='ad_send')
     ad_receiver = models.ForeignKey(Ad, on_delete=models.SET_NULL, null=True, verbose_name='Id объявления-получателя', related_name='ad_rec')
-#    user_sender = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Отправитель', related_name='user_send')
-#    user_receiver = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, verbose_name='Получатель', related_name='user_rec')
     comment = models.TextField('Комментарий')
     status_dict = {'expect': 'ожидает', 'accepted': 'принята', 'rejected': 'отклонена'}
     status = models.CharField('Статус', max_length=10, choices=status_dict, default='expect')

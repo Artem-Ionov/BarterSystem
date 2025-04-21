@@ -1,26 +1,29 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    {% if proposals %}
-        {% for proposal in proposals %}
-        <div class="ad">
-            <h3>Предложение {{proposal.id}}</h3>
-            <ul>
-                <li>Отправитель и Id его обявления: {{proposal.ad_sender}}</li>
-                <li>Получатель и Id его обявления: {{proposal.ad_receiver}}</li>
-                <li>Комментарий: {{proposal.comment}}</li>
-                <li>Статус: {{proposal.get_status_display}}</li>
-                <li>Создано: {{proposal.created_at|date:'d.m.Y H:i'}}</li>
-            </ul>
-                <div class=buttons>
-                    <a href="{% url 'proposal_status' proposal.id %}">Изменить статус</a>
-                    <a href="{% url 'delete_proposal' proposal.id %}"
-                       onclick="return confirm('Удалить предложение?')">Удалить</a>
-                </div>
-        </div>
-        <br>
-        {% endfor %}
-    {% else %}
+    <h2>Список предложений на обмен вещей</h2>
+    {% for proposal in proposals %}
+    <div class="ad" style="width: 70%;">                        <!--Добавляем стиль непосредственно в элемент HTML-->
+        <h3>Предложение {{proposal.id}}</h3>
+        <ul>
+            <li>Отправитель и Id его обявления: {{proposal.ad_sender}}</li>
+            <li>Получатель и Id его обявления: {{proposal.ad_receiver}}</li>
+            <li>Комментарий: {{proposal.comment}}</li>
+            <li>Статус: {{proposal.get_status_display}}</li>
+            <li>Создано: {{proposal.created_at|date:'d.m.Y H:i'}}</li>
+        </ul>
+            <div class=buttons>
+            {% if request.user == proposal.ad_receiver.user %}  <!--Если пользователь является получателем предложения-->
+                <a href="{% url 'proposal_status' proposal.id %}">Изменить статус</a>
+            {% endif %}
+            {% if request.user == proposal.ad_sender.user %}    <!--Если пользователь является автором предложения-->
+                <a href="{% url 'delete_proposal' proposal.id %}"
+                    onclick="return confirm('Удалить предложение?')">Удалить</a>
+            {% endif %}
+            </div>
+    </div>
+    <br>
+    {% empty %}
         <p>Пока нет ни одного предложения</p>
-    {% endif %}
+    {% endfor %}
 {% endblock %}

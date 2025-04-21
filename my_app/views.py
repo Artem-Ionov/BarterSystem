@@ -72,7 +72,7 @@ def proposal_status(request, id):
             return redirect('proposal_list')
     else:
         form = StatusForm(initial={'status': proposal.status})  # Передаём в форму значение из экземпляра модели
-    return render(request, 'proposal_status.html', {'form': form})
+    return render(request, 'proposal_status.html', {'form': form, 'proposal': proposal})
 
 def delete_proposal(request, id):
     "Удаление предложения"
